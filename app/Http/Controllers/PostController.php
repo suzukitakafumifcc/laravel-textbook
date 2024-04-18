@@ -12,17 +12,17 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index():View
     {
-        return view('post.index');
+        return view('post.index', ['posts' => Post::all()]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('post.create');
     }
 
     /**
@@ -37,7 +37,7 @@ class PostController extends Controller
 
         Post::create($validated);
 
-        return redirect(route('post.index'))->with('message', '送信しました');
+        return redirect(route('post.create'))->with('message', '送信しました');
     }
 
     /**
