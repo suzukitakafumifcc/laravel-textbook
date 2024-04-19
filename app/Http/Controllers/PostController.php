@@ -47,25 +47,34 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(Post $post): View
     {
-        return view('post.show', ['post' => $post]);
+        return view('post.show', compact('post'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function edit(Post $post): View
     {
-        //
+        return view('post.edit', compact('post'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Post $post): RedirectResponse
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|max:200',
+            'body' => 'required|max:400',
+        ]);
+
+        $validated['user_id'] = auth()->id();
+
+        $post->update($validated);
+
+        return redirect(route('post.edit', $post))->with('message', '更新しました');
     }
 
     /**
