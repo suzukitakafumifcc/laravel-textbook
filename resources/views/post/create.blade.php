@@ -4,11 +4,7 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto px-6">
-        @if (session('message'))
-            <div class="text-red-600 font-bold">
-                {{ session('message') }}
-            </div>
-        @endif
+        <x-message :message="session('message')" />
         <form method="POST" action="{{ route('post.store') }}">
             @csrf
             <div class="mt-8">

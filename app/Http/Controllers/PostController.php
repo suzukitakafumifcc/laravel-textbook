@@ -41,7 +41,7 @@ class PostController extends Controller
 
         Post::create($validated);
 
-        return redirect()->route('post.create')->with('message', '送信しました');
+        return redirect()->route('post.create')->with('message', '保存しました');
     }
 
     /**
