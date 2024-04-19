@@ -41,7 +41,7 @@ class PostController extends Controller
 
         Post::create($validated);
 
-        return redirect(route('post.create'))->with('message', '送信しました');
+        return redirect()->route('post.create')->with('message', '送信しました');
     }
 
     /**
@@ -74,14 +74,17 @@ class PostController extends Controller
 
         $post->update($validated);
 
-        return redirect(route('post.edit', $post))->with('message', '更新しました');
+        return redirect()
+            ->route('post.edit', $post)
+            ->with('message', '更新しました');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy(Post $post): RedirectResponse
     {
-        //
+        $post->delete();
+        return redirect()->route('post.index')->with('message', '削除しました');
     }
 }
