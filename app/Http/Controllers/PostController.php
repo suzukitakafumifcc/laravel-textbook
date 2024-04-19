@@ -12,9 +12,11 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index():View
+    public function index(): View
     {
-        return view('post.index', ['posts' => Post::all()]);
+        $posts = Post::where('user_id', auth()->id())->with('user')->get();
+
+        return view('post.index', compact('posts'));
     }
 
     /**
@@ -34,6 +36,8 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'body' => 'required|string|max:400'
         ]);
+
+        $validated['user_id'] = auth()->id();
 
         Post::create($validated);
 

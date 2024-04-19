@@ -11,7 +11,7 @@
                 <hr class="w-full">
                 <p class="mt-4 p-4">{{ $post->body }}</p>
                 <div class="p-4 text-sm font-semibold">
-                    {{ $post->created_at }}
+                    {{ $post->created_at }} / {{ $post->user->name ?? '匿名' }}
                 </div>
             </div>
         @endforeach
